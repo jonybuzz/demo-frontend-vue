@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mascotas</title>
-    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
@@ -11,38 +11,8 @@
 
     </div>
 
-<!--    <button onclick="myFunction()">Click me</button>-->
+    <button class="btn btn-primary" onclick="crearMascota()">Click me</button>
 
-
-    <script>
-
-        // function myFunction(){
-        //     alert("Hola")
-        // }
-
-
-        fetch('http://localhost:8080/mascotas')
-            .then(response => response.json())
-            .then(data => console.log(data))
-
-
-        // fetch('http://localhost:8080/mascotas')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         document.getElementById("app").innerHTML += '<table id="tablita"></table>'
-        //         data.forEach(mascota => document.getElementById("tablita").innerHTML += "<tr><td>" + mascota.nombre + "</td></tr>")
-        //     })
-
-        // fetch("http://localhost:8080/mascotas", {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({nombre:"Lala", raza:"PERRO"})
-        // });
-
-
-
-    </script>
+    <script src="myscript.js"></script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mascotas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+<body>
+
+<div id="appVue">
+    <div class="search-box w-100 input-group dds-busqueda" id="el-buscador">
+        <input placeholder="username" v-model="username" type="text" id="username" class="w-100 h-100 form-control" value="" style="min-height: 45px;">
+    </div>
+
+    <button class="btn btn-primary" v-on:click="login">Login</button>
+</div>
+
+<script>
+    var app = new Vue({
+        el: "#appVue",
+        data: {
+            username: "",
+        },
+        methods: {
+            login: function(){
+                //Armar objeto request
+                var request = {
+                    username: this.username,
+                    password: 123
+                }
+                console.log(this.username)
+                //POST al API REST
+                //redirección
+            }
+        },
+        created() {
+            fetch('http://localhost:8080/mascotas')
+                .then(response => response.json())
+                .then(data => {
+                    this.mascotas = data
+                })
+        }
+    })
+</script>
+</body>
+</html>

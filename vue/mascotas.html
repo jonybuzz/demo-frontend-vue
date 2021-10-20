@@ -26,18 +26,18 @@
     var app = new Vue({
         el: "#app",
         data: {
-            mascota: {id: 1, nombre: "Juan", raza: "PEPE"},
-            // mascota: {}
+            // mascota: {id: 1, nombre: "Juan", raza: "PEPE"},
+            mascota: {}
         },
-        // created () {
-        //     const urlParams = new URLSearchParams(window.location.search);
-        //
-        //     fetch('http://localhost:8080/mascotas/' + urlParams.get("id"))
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             this.mascota = data
-        //         })
-        // }
+        created () {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            fetch('http://localhost:8080/mascotas/' + urlParams.get("id"))
+                .then(response => response.json())
+                .then(mascotaObtenida => {
+                    this.mascota = mascotaObtenida
+                })
+        }
     })
 </script>
 </body>
