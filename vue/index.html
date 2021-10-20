@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mascotas</title>
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+
+
+        <table>
+            <tr v-for="mascota in mascotasHardcode">
+                <td>{{mascota.nombre}}</td>
+                <td>{{mascota.raza}}</td>
+            </tr>
+        </table>
+
+    </div>
+
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            mascotasHardcode: [{id: 1, nombre: "Juan", raza: "PEPE"}],
+            // mascotas: []
+        },
+        // created () {
+        //     fetch('http://localhost:8080/mascotas')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             this.mascotas = data
+        //         })
+        // }
+    })
+</script>
+</body>
+</html>
