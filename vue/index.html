@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Mascotas</title>
@@ -15,7 +15,7 @@
             <tr v-for="mascota in mascotas" v-if="mascota.activa">
                 <td>{{mascota.nombre}}</td>
                 <td>{{mascota.raza}}</td>
-                <td><button><a v-bind:href="'mascotas.html?id=' + mascota.id">Ver</a></button></td>
+                <td><button><a v-bind:href="'info-mascota.html?id=' + mascota.id">Ver</a></button></td>
             </tr>
         </table>
 
