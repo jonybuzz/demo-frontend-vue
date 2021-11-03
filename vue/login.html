@@ -11,9 +11,18 @@
 <body>
 
 <div id="appVue">
+
+    <!--    INPUT TEXTO-->
     <div class="search-box w-100 input-group dds-busqueda" id="el-buscador">
-        <input placeholder="username" v-model="username" type="text" id="username" class="w-100 h-100 form-control" value="" style="min-height: 45px;">
+        <input placeholder="username" v-model="username" type="text" id="username" class="w-100 h-100 form-control" value=""
+               style="min-height: 45px;">
     </div>
+
+    <!--    SELECCIONABLE CON ID COMO VALOR-->
+    <select v-model="mascotaSeleccionada">
+        <option disabled value="">Seleccione un elemento</option>
+        <option v-for="mascota in mascotas" v-bind:value="mascota.id">{{mascota.nombre}}</option>
+    </select>
 
     <button class="btn btn-primary" v-on:click="login">Login</button>
 </div>
@@ -23,17 +32,23 @@
         el: "#appVue",
         data: {
             username: "",
+            mascotaSeleccionada: "",
+            mascotas: [],
         },
         methods: {
-            login: function(){
+            login: function () {
                 //Armar objeto request
                 var request = {
                     username: this.username,
-                    password: 123
+                    password: 123,
+                    mascotaSeleccionada: this.mascotaSeleccionada
                 }
-                console.log(this.username)
+                console.log(request)
+                if (request.mascotaSeleccionada == "") {
+                    alert("Debes seleccionar una mascota")
+                }
                 //POST al API REST
-                //redirección
+                //luego puede ser una redirección o mostrar un mensaje
             }
         },
         created() {
