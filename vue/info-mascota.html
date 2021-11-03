@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Mascotas</title>
-    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 </head>
 <body>
 
-    <div id="app">
+<div id="app" class="container">
 
-        <h3>Info de la mascota</h3>
-        <table>
-            <tr>
-                <td>{{mascota.nombre}}</td>
-                <td>{{mascota.raza}}</td>
-            </tr>
-        </table>
+    <h3>Info de la mascota</h3>
+    <table class="table">
+        <tr>
+            <td>{{mascota.nombre}}</td>
+            <td>{{mascota.raza}}</td>
+            <td><img v-bind:src="imagen.contenidoBase64"/> {{imagen.nombre}}</td>
+        </tr>
+    </table>
 
+    <div class="row">
+        <div class="col">
+            <input type="file" accept="image/png,image/jpeg" @change="subirFoto($event)">
+        </div>
     </div>
+
+</div>
 
 
 <script>
@@ -27,9 +35,10 @@
         el: "#app",
         data: {
             // mascota: {id: 1, nombre: "Juan", raza: "PEPE"},
-            mascota: {}
+            mascota: {},
+            imagen: {}
         },
-        created () {
+        created() {
             const urlParams = new URLSearchParams(window.location.search);
 
             fetch('http://localhost:8080/mascotas/' + urlParams.get("id"))
@@ -37,6 +46,45 @@
                 .then(mascotaObtenida => {
                     this.mascota = mascotaObtenida
                 })
+            fetch('http://localhost:8080/mascotas/' + urlParams.get("id") + "/imagen")
+                .then(response => response.json())
+                .then(imagenObtenida => {
+                    this.imagen = imagenObtenida
+                })
+        },
+        methods: {
+            subirFoto: function (event) {
+                var file = event.target.files[0]
+                this.getBase64(file)
+                    .then(img => {
+                        var request = {
+                            nombre: file.name,
+                            contenidoBase64: img
+                        }
+                        console.dir(request)
+                        fetch("http://localhost:8080/mascotas/" + this.mascota.id + "/imagen", {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(request)
+                        })
+
+                    })
+            },
+            getBase64: function (file) {
+                return new Promise((resolve, reject) => {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function () {
+                        resolve(reader.result)
+                    };
+                    reader.onerror = function (error) {
+                        reject('Error: ', error);
+                    }
+                })
+            }
+
         }
     })
 </script>
