@@ -1,0 +1,12 @@
+body {
+    background-color: seashell;
+    color: darkslategrey;
+}
+
+#el-buscador {
+    background-color: #426395;
+}
+
+.search-box {
+    background-color: green;
+}

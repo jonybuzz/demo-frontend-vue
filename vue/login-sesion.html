@@ -49,7 +49,7 @@
         },
         methods: {
             login: function () {
-                fetch("http://localhost:8080/login", {
+                fetch("http://localhost:8080/api/login", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -61,12 +61,13 @@
                 })
                     .then(response => response.json())
                     .then(datos => {
-                        localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
+                        var id = datos.idSesion
+                        localStorage.setItem("IDSESION", id) //guarda ID
                     })
             },
             mostrarMisDatos: function () {
                 var idSesion = localStorage.getItem("IDSESION") //recupera ID
-                fetch("http://localhost:8080/mis-datos", {
+                fetch("http://localhost:8080/api/mis-datos", {
                     headers: {
                         "Authorization": idSesion //se envia el IDSESION para identificar al usuario en backend
                     }

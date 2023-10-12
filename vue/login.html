@@ -21,7 +21,7 @@
     <!--    SELECCIONABLE CON ID COMO VALOR-->
     <select v-model="mascotaSeleccionada">
         <option disabled value="">Seleccione un elemento</option>
-        <option v-for="mascota in mascotas" v-bind:value="mascota.id">{{mascota.nombre}}</option>
+        <option v-for="mascota in mascotas" v-bind:value="mascota.id">{{mascota.nombre}} ({{mascota.raza}})</option>
     </select>
 
     <button class="btn btn-primary" v-on:click="login">Login</button>
@@ -35,11 +35,11 @@
             mascotaSeleccionada: "",
             mascotas: [],
         },
-        methods: {
+        methods: { //son sólo definiciones de funciones, que no se ejecutan por si solas
             login: function () {
                 //Armar objeto request
                 var request = {
-                    username: this.username,
+                    usuario: this.username,
                     password: 123,
                     mascotaSeleccionada: this.mascotaSeleccionada
                 }
@@ -50,10 +50,13 @@
                 }
                 //POST al API REST
                 //luego puede ser una redirección o mostrar un mensaje
+            },
+            printAll: function (){
+
             }
         },
-        created() {
-            fetch('http://localhost:8080/mascotas')
+        created() { //se ejecuta al inicio de la instancia Vue
+            fetch('http://localhost:8080/api/mascotas')
                 .then(response => response.json())
                 .then(data => {
                     this.mascotas = data

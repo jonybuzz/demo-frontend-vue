@@ -10,24 +10,24 @@
 </head>
 <body>
 
-<div id="app" class="container">
+    <div id="app" class="container">
 
-    <h3>Info de la mascota</h3>
-    <table class="table">
-        <tr>
-            <td>{{mascota.nombre}}</td>
-            <td>{{mascota.raza}}</td>
-            <td><img v-bind:src="imagen.contenidoBase64"/> {{imagen.nombre}}</td>
-        </tr>
-    </table>
+        <h3>Info de la mascota</h3>
+        <table class="table">
+            <tr>
+                <td>{{mascota.nombre}}</td>
+                <td>{{mascota.raza}}</td>
+                <td><img v-bind:src="imagen.contenidoBase64"/> {{imagen.nombre}}</td>
+            </tr>
+        </table>
 
-    <div class="row">
-        <div class="col">
-            <input type="file" accept="image/png,image/jpeg" @change="subirFoto($event)">
+        <div class="row">
+            <div class="col">
+                <input type="file" accept="image/png,image/jpeg" @change="subirFoto($event)">
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 
 <script>
@@ -41,12 +41,13 @@
         created() {
             const urlParams = new URLSearchParams(window.location.search);
 
-            fetch('http://localhost:8080/mascotas/' + urlParams.get("id"))
+            fetch('http://localhost:8080/api/mascotas/' + urlParams.get("id"))
                 .then(response => response.json())
                 .then(mascotaObtenida => {
                     this.mascota = mascotaObtenida
                 })
-            fetch('http://localhost:8080/mascotas/' + urlParams.get("id") + "/imagen")
+
+            fetch('http://localhost:8080/api/mascotas/' + urlParams.get("id") + "/imagen")
                 .then(response => response.json())
                 .then(imagenObtenida => {
                     this.imagen = imagenObtenida
@@ -62,7 +63,7 @@
                             contenidoBase64: img
                         }
                         console.dir(request)
-                        fetch("http://localhost:8080/mascotas/" + this.mascota.id + "/imagen", {
+                        fetch("http://localhost:8080/api/mascotas/" + this.mascota.id + "/imagen", {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json'

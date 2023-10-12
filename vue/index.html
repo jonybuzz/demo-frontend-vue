@@ -9,13 +9,18 @@
 </head>
 <body>
 
+    <h3>Mi tabla con Vue</h3>
     <div id="appVue">
 
         <table class="table table-bordered table-striped">
             <tr v-for="mascota in mascotas" v-if="mascota.activa">
                 <td>{{mascota.nombre}}</td>
                 <td>{{mascota.raza}}</td>
-                <td><button><a v-bind:href="'info-mascota.html?id=' + mascota.id">Ver</a></button></td>
+                <td>
+                    <button>
+                        <a v-bind:href="'info-mascota.html?id=' + mascota.id">Ver</a>
+                    </button>
+                </td>
             </tr>
         </table>
 
@@ -30,11 +35,19 @@
             mascotas: []
         },
         created () {
-            fetch('http://localhost:8080/mascotas')
-                .then(response => response.json())
-                .then(data => {
-                    this.mascotas = data
-                })
+
+            setTimeout(()=> { //para demorar la ejecución 5 segundos
+
+
+                fetch('http://localhost:8080/api/mascotas')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.mascotas = data
+                    })
+
+
+            }, 5000)
+
         }
     })
 </script>
